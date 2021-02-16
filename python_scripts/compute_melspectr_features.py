@@ -79,14 +79,14 @@ def compute_features(audio_folder, txt_path, melspectr_dest_root, data_subset):
         os.makedirs(melspectr_dest_subset_root)
 
     print("Save in {}".format(melspectr_dest_subset_root))
-    compute_melspectrogram(args_list[0], melspectr_dest_root=melspectr_dest_subset_root, audio_folder=audio_folder)
+    #compute_melspectrogram(args_list[0], melspectr_dest_root=melspectr_dest_subset_root, audio_folder=audio_folder)
 
 
-    #compute_features_partial = partial(compute_melspectrogram, melspectr_dest_root=melspectr_dest_subset_root,
-    #                    audio_lsfolder=audio_folder)
+    compute_features_partial = partial(compute_melspectrogram, melspectr_dest_root=melspectr_dest_subset_root,
+                        audio_lsfolder=audio_folder)
     # Run parallel execution
-    #pool = Pool(cpu_count() // 2)
-    #_ = list(tqdm(pool.imap(compute_features_partial, args_list), total=len(args_list)))
+    pool = Pool(cpu_count() // 2)
+    _ = list(tqdm(pool.imap(compute_features_partial, args_list), total=len(args_list)))
     return
 
 
